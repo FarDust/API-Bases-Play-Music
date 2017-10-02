@@ -15,7 +15,7 @@ class DbLogic
     for($i = 0; $i < sizeof($conditions);$i++){
       $quey -> bindParam($i+1,$conditions[$i]);
     }
-    $query->execute();
+    return $query->execute();
   }
 }
 
