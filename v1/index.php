@@ -19,10 +19,12 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $responce = $logic->bind($sql,$_POST);
   } else {
     header(var_dump(http_response_code(400)));
-    $responce = "{'error' : '400'}";
+    $responce = {"error" : 400};
   }
   echo json_encode($responce);
 }else{
   header(var_dump(http_response_code(405)));
+  $responce = {"error" : 400};
+  echo json_encode($responce);
 }
  ?>
