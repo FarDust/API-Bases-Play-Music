@@ -5,11 +5,11 @@ class Connection {
   private $link;
 
   function __construct(){
-    
+
   }
 
   function connect(){
-    include_once dirname(__FILE__).'./Config.php'
+    include_once dirname(__FILE__).'./Config.php';
 
     try {
       $this->link = new PDO('psql:host='.DB_HOST.

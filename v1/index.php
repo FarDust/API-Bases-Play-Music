@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
-include("../../include/DbConnect.php");
-include_once("../../include/DbHandler.php");
+include("../include/DbConnect.php");
+include_once("../include/DbHandler.php");
 
 if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $responce;
@@ -19,7 +19,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $responce = $logic->bind($sql,$_POST);
   } else {
     header(var_dump(http_response_code(400)));
-    $responce = "{'error' : '400'}"
+    $responce = "{'error' : '400'}";
   }
   echo json_encode($responce);
 }else{
