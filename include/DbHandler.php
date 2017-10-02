@@ -10,8 +10,8 @@ class DbLogic
     private $db = conn.connect();
   }
 
-  function find(type,labels,conditions){
-    $query = $this->db->prepare("");
+  function bind(sql,conditions){
+    $query = $this->db->prepare($sql);
     for($i = 0; $i < sizeof($conditions);$i++){
       $quey -> bindParam($i+1,$conditions[$i]);
     }
