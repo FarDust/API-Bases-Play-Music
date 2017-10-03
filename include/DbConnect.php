@@ -12,7 +12,7 @@ class Connection {
     include_once dirname(__FILE__).'/Config.php';
 
     try {
-      $this->$link = new PDO('psql:host='.DB_HOST.
+      $this->$link = new PDO('pgsql:host='.DB_HOST.
                             ';port='.DB_PORT.
                             ';dbname='.DB_NAME.
                             ';user='.DB_USERNAME.
