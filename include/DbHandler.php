@@ -7,7 +7,7 @@ class DbLogic
   private $db;
   function __construct($conn)
   {
-    $this->$db = $conn;
+    $this->$db = $conn->connect();
   }
 
   function bind($sql,$conditions){

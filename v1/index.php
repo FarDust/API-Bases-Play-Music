@@ -7,7 +7,7 @@ include_once("../include/DbHandler.php");
 if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $response;
   $db = new Connection();
-  $logic = new DbLogic($db.connect());
+  $logic = new DbLogic($db);
   unset($_POST['rule']);
   if (isset($_POST['option']) && $_POST['option'] == 'banda'){
     $sql = 'SELECT * FROM Banda WHERE Banda.nombre = ?';
