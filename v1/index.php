@@ -1,4 +1,8 @@
 <?php
+
+define('ENVIRONMENT','dev');
+
+
 header('Content-Type: application/json');
 
 include("../include/DbConnect.php");
@@ -22,6 +26,9 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   } else {
     header(http_response_code(400));
     $response = "{'error' : 400}";
+  }
+  if (defined('ENVIRONMENT') && ENVIRONMENT == 'dev' && isset($sql)){
+    var_dump($sql);
   }
   echo json_encode($response);
 }else{
