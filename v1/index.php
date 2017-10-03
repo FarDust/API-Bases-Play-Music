@@ -13,12 +13,14 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $sql = 'SELECT * FROM Banda WHERE Banda.nombre = ?';
     unset($_POST['option']);
     $responce = $logic->bind($sql,$_POST);
+    header(http_response_code(200));
   }elseif (isset($_POST['option']) && $_POST['option'] == 'artista') {
     $sql = 'SELECT * FROM Artista WHERE Banda.nombre = ?';
     unset($_POST['option']);
     $responce = $logic->bind($sql,$_POST);
+    header(http_response_code(200));
   } else {
-    header(var_dump(http_response_code(400)));
+    header(http_response_code(400));
     $responce = "{'error' : 400}";
   }
   echo json_encode($responce);
