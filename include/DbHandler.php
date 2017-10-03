@@ -11,7 +11,7 @@ class DbLogic
   }
 
   function bind($sql,$conditions){
-    $query = $this->db->prepare($sql);
+    $query = $this->$db->prepare($sql);
     for($i = 0; $i < sizeof($conditions);$i++){
       $quey -> bindParam($i+1,$conditions[$i]);
     }
