@@ -12,15 +12,15 @@ class Connection {
     include_once dirname(__FILE__).'/Config.php';
 
     try {
-      $this->$link = new PDO('pgsql:host='.DB_HOST.
+      $this->link = new PDO('pgsql:host='.DB_HOST.
                             ';port='.DB_PORT.
                             ';dbname='.DB_NAME.
                             ';user='.DB_USERNAME.
                             ';password='.DB_PASSWORD);
-      $this->$link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $this->$link->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+      $this->link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->link->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-      return $this->$link;
+      return $this->link;
 
     } catch (PDOException $e) {
         if (defined('ENVIRONMENT') && ENVIRONMENT == 'dev'){

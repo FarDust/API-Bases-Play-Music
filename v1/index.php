@@ -19,7 +19,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $response = $logic->bind($sql,$_POST);
     header(http_response_code(200));
   }elseif (isset($_POST['option']) && $_POST['option'] == 'artista') {
-    $sql = 'SELECT * FROM Artista WHERE Banda.nombre = ?';
+    $sql = 'SELECT * FROM Artista WHERE Artista.nombre = ?';
     unset($_POST['option']);
     $response = $logic->bind($sql,$_POST);
     header(http_response_code(200));

@@ -7,14 +7,12 @@ class DbLogic
   private $db;
   function __construct($conn)
   {
-    $this->$db = $conn->connect();
+    $this->db = $conn->connect();
   }
 
   function bind($sql,$conditions){
-    $query = $this->$db->prepare($sql);
-    for($i = 0; $i < sizeof($conditions);$i++){
-      $quey -> bindParam($i+1,$conditions[$i]);
-    }
+    $query = $this->db->prepare($sql);
+    $query->bindParam(1,$conditions['nombre']);
     return $query->execute();
   }
 }
