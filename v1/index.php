@@ -12,7 +12,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $fullresponse = [];
   $db9 = new Connection(9);
   $logic9 = new DbLogic($db9);
-  $db28 = new Conection(28);
+  $db28 = new Connection(28);
   $logic28 = new DbLogic($db28);
   unset($_POST['rule']);
   if (isset($_POST['option']) && $_POST['option'] == 'banda'){
