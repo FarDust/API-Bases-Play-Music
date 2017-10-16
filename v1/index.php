@@ -59,7 +59,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     AND Miembro.fecha_abandono < NOW()';
     $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
     $sql =
-      'SELECT Artista.nombre
+      'SELECT Disco.nombre,
       FROM Banda,Disco, BandaAutorOf, Miembro, Artista
       WHERE Banda.id = BandaAutorOf.idd
       AND Disco.id = BandaAutorOf.idd
