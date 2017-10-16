@@ -58,9 +58,9 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     AND HasEmail.email = Email.email
     AND Miembro.fecha_abandono < NOW()';
     $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
-    $sql =
+/*    $sql =
       'SELECT Disco.nombre,
-      FROM Banda,Disco, BandaAutorOf, Miembro, Artista
+      FROM Banda, Disco, BandaAutorOf, Miembro, Artista
       WHERE Banda.id = BandaAutorOf.idd
       AND Disco.id = BandaAutorOf.idd
       AND Banda.id = Miembro.idb
@@ -71,11 +71,11 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       WHERE Artista.id = ArtistaAutorOf.idd
       AND Disco.id = ArtistaAutorOf.idd
       AND Artista.nombre = :nombre';
-    $fullresponse['discs'] = $logic9->bind($sql,$_POST);
+    $fullresponse['discs'] = $logic9->bind($sql,$_POST);*/
     header(http_response_code(200));
   } else {
     header(http_response_code(400));
-    $response = "{'error' : 400}";
+    $fullresponse = "{'error' : 400}";
   }
   if (defined('ENVIRONMENT') && ENVIRONMENT == 'dev' && isset($sql)){
     var_dump($sql);
@@ -84,7 +84,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   echo json_encode($fullresponse);
 }else{
   header(http_response_code(405));
-  $response = "{'error' : 405}";
-  echo json_encode($response);
+  $fullresponse = "{'error' : 405}";
+  echo json_encode($fullresponse);
 }
  ?>
