@@ -2,7 +2,6 @@
 
 #define('ENVIRONMENT','dev');
 
-
 header('Content-Type: application/json');
 
 include("../include/DbConnect.php");
@@ -14,7 +13,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $db9 = new Connection(9);
   $logic9 = new DbLogic($db9);
   $db28 = new Conection(28);
-  $logic28 = new DbLogic($db28)
+  $logic28 = new DbLogic($db28);
   unset($_POST['rule']);
   if (isset($_POST['option']) && $_POST['option'] == 'banda'){
     $sql =
@@ -68,7 +67,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   echo json_encode($fullresponse);
 }else{
   header(http_response_code(405));
-  $response = "{'error' : 400}";
+  $response = "{'error' : 405}";
   echo json_encode($response);
 }
  ?>
