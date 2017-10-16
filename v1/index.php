@@ -54,7 +54,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND Disco.id = ArtistaAutorOf.idd
       AND Artista.nombre = ?';
     $response = $logic9->bind($sql,$_POST);
-    $fullresponse['discs'] = $response
+    $fullresponse['discs'] = $response;
     header(http_response_code(200));
   } else {
     header(http_response_code(400));
