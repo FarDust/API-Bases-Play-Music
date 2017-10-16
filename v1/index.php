@@ -14,7 +14,6 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $logic9 = new DbLogic($db9);
   $db28 = new Connection(28);
   $logic28 = new DbLogic($db28);
-  unset($_POST['rule']);
   if (isset($_POST['option']) && $_POST['option'] == 'banda'){
     $sql =
       'SELECT Artista.nombre, Email.email
@@ -24,11 +23,9 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
       AND HasEmail.email = Email.email';
-    unset($_POST['option']);
     $response = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   }elseif (isset($_POST['option']) && $_POST['option'] == 'artista') {
-    unset($_POST['option']);
     $sql =
       'SELECT Artista.nombre, Email.email
       FROM Banda, Miembro, Artista, HasEmail, Email,
@@ -45,8 +42,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND (Miembro.fecha_abandono > NOW()
       OR Miembro.fecha_abandono = null)
       AND Miembro.fecha_ingreso < NOW()';
-    $response = $logic9->bind($sql,$_POST);
-    $fullresponse['a_members'] = $response;
+    $fullresponse['a_members'] = $logic9->bind($sql,$_POST);
     $sql =
     'SELECT Artista.nombre, Email.email
     FROM Banda, Miembro, Artista, HasEmail, Email,
@@ -61,8 +57,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     AND Artista.id = HasEmail.id
     AND HasEmail.email = Email.email
     AND Miembro.fecha_abandono < NOW()';
-    $response = $logic9->bind($sql,$_POST);
-    $fullresponse['r_members'] = $response;
+    $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
     $sql =
       'SELECT Artista.nombre
       FROM Banda,Disco, BandaAutorOf, Miembro, Artista
@@ -76,8 +71,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       WHERE Artista.id = ArtistaAutorOf.idd
       AND Disco.id = ArtistaAutorOf.idd
       AND Artista.nombre = $1';
-    $response = $logic9->bind($sql,$_POST);
-    $fullresponse['discs'] = $response;
+    $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   } else {
     header(http_response_code(400));

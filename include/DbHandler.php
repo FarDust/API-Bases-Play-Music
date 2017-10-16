@@ -12,7 +12,10 @@ class DbLogic
 
   function bind($sql,$conditions){
     $query = $this->db->prepare($sql);
-    $query->bindParam(1,$conditions['nombre']);
+    if (isset[$conditions["rule"]] && $conditions["rule"] == "find"){
+      $query->bindParam(1,$conditions['nombre']);
+    }
+    
     return $query->execute();
   }
 }
