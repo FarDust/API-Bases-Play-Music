@@ -4,7 +4,7 @@
 
 header('Content-Type: application/json');
 
-include("../include/DbConnect.php");
+include_once("../include/DbConnect.php");
 include_once("../include/DbHandler.php");
 
 if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
