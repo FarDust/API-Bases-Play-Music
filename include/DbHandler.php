@@ -15,8 +15,7 @@ class DbLogic
     if (isset($conditions["rule"]) && $conditions["rule"] == "find"){
       $query->bindParam(':nombre',$conditions['nombre'],PDO::PARAM_STR);
     }
-    $result = $query->execute();
-    return $result;
+    return $query;
   }
 }
 
