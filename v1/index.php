@@ -18,7 +18,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $sql =
       'SELECT Artista.nombre, Email.email
       FROM Banda, Miembro, Artista, HasEmail, Email
-      WHERE Banda.nombre = :nombre
+      WHERE Banda.nombre = $1
       AND Miembro.idb = Banda.id
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
@@ -31,7 +31,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       FROM Banda, Miembro, Artista, HasEmail, Email,
       (SELECT banda.id
         FROM Artista, Miembro, Banda
-        WHERE Artista.nombre = :nombre
+        WHERE Artista.nombre = $1
         AND Artista.id = Miembro.ida
         AND Miembro.idb = Banda.id) AS A
       WHERE A.id = Banda.id
@@ -48,7 +48,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     FROM Banda, Miembro, Artista, HasEmail, Email,
     (SELECT banda.id
       FROM Artista, Miembro, Banda
-      WHERE Artista.nombre = :nombre
+      WHERE Artista.nombre = $1
       AND Artista.id = Miembro.ida
       AND Miembro.idb = Banda.id) AS A
     WHERE A.id = Banda.id
@@ -58,20 +58,20 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     AND HasEmail.email = Email.email
     AND Miembro.fecha_abandono < NOW()';
     $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
-/*    $sql =
+    $sql =
       'SELECT Disco.nombre,
       FROM Banda, Disco, BandaAutorOf, Miembro, Artista
       WHERE Banda.id = BandaAutorOf.idd
       AND Disco.id = BandaAutorOf.idd
       AND Banda.id = Miembro.idb
       AND Artista.id = Miembro.ida
-      AND Artista.nombre = :nombre
+      AND Artista.nombre = $1
       UNION SELECT Artista.nombre
       FROM Artista, Disco, ArtistaAutorOf
       WHERE Artista.id = ArtistaAutorOf.idd
       AND Disco.id = ArtistaAutorOf.idd
-      AND Artista.nombre = :nombre';
-    $fullresponse['discs'] = $logic9->bind($sql,$_POST);*/
+      AND Artista.nombre = $1';
+    $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   } else {
     header(http_response_code(400));
