@@ -37,9 +37,22 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
       AND HasEmail.email = Email.email
-      AND Miembro.fecha_abandono = null';
+      AND (Miembro.fecha_abandono > NOW()
+      OR Miembro.fecha_abandono = null)
+      AND Miembro.fecha_ingreso < NOW()';
     $response = $logic9->bind($sql,$_POST);
     $fullresponse['a_members'] = $response;
+    $sql =
+      'SELECT Artista.nombre, Email.email
+      FROM Banda, Miembro, Artista, HasEmail, Email
+      WHERE Artista.nombre = $1
+      AND Miembro.idb = Banda.id
+      AND Miembro.ida = Artista.id
+      AND Artista.id = HasEmail.id
+      AND HasEmail.email = Email.email
+      AND Miembro.fecha_abandono < NOW()';
+    $response = $logic9->bind($sql,$_POST);
+    $fullresponse['r_members'] = $response;
     $sql =
       'SELECT Artista.nombre
       FROM Banda,Disco, BandaAutorOf, Miembro, Artista
