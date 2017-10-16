@@ -31,8 +31,13 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     unset($_POST['option']);
     $sql =
       'SELECT Artista.nombre, Email.email
-      FROM Banda, Miembro, Artista, HasEmail, Email
-      WHERE Artista.nombre = $1
+      FROM Banda, Miembro, Artista, HasEmail, Email,
+      (SELECT banda.id
+        FROM Artista, Miembro, Banda
+        WHERE Artista.nombre = $1
+        AND Artista.id = Miembro.ida
+        AND Miembro.idb = Banda.id) AS A
+      WHERE A.id = Banda.id
       AND Miembro.idb = Banda.id
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
@@ -43,14 +48,19 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $response = $logic9->bind($sql,$_POST);
     $fullresponse['a_members'] = $response;
     $sql =
-      'SELECT Artista.nombre, Email.email
-      FROM Banda, Miembro, Artista, HasEmail, Email
+    'SELECT Artista.nombre, Email.email
+    FROM Banda, Miembro, Artista, HasEmail, Email,
+    (SELECT banda.id
+      FROM Artista, Miembro, Banda
       WHERE Artista.nombre = $1
-      AND Miembro.idb = Banda.id
-      AND Miembro.ida = Artista.id
-      AND Artista.id = HasEmail.id
-      AND HasEmail.email = Email.email
-      AND Miembro.fecha_abandono < NOW()';
+      AND Artista.id = Miembro.ida
+      AND Miembro.idb = Banda.id) AS A
+    WHERE A.id = Banda.id
+    AND Miembro.idb = Banda.id
+    AND Miembro.ida = Artista.id
+    AND Artista.id = HasEmail.id
+    AND HasEmail.email = Email.email
+    AND Miembro.fecha_abandono < NOW()';
     $response = $logic9->bind($sql,$_POST);
     $fullresponse['r_members'] = $response;
     $sql =
