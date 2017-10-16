@@ -16,7 +16,9 @@ class DbLogic
       $query->bindParam(':nombre',$conditions['nombre'],PDO::PARAM_STR);
     }
 
-    return $query->execute();
+    $result = $query->execute();
+    var_dump($result);
+    return $result;
   }
 }
 
