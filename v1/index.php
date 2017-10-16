@@ -18,7 +18,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $sql =
       'SELECT Artista.nombre, Email.email
       FROM Banda, Miembro, Artista, HasEmail, Email
-      WHERE Banda.nombre = ?
+      WHERE Banda.nombre = :nombre
       AND Miembro.idb = Banda.id
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
