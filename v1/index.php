@@ -39,7 +39,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
         AND (Miembro.fecha_abandono < NOW() OR Miembro.fecha_abandono != null";
         $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
         $sql =
-          "SELECT Disco.nombre,
+          "SELECT Disco.nombre
           FROM Banda, Disco, BandaAutorOf, Miembro, Artista
           WHERE Banda.id = BandaAutorOf.idd
           AND Disco.id = BandaAutorOf.idd
@@ -87,7 +87,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     AND Miembro.fecha_abandono < NOW()";
     $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
     $sql =
-      "SELECT Disco.nombre,
+      "SELECT Disco.nombre
       FROM Banda, Disco, BandaAutorOf, Miembro, Artista
       WHERE Banda.id = BandaAutorOf.idd
       AND Disco.id = BandaAutorOf.idd
