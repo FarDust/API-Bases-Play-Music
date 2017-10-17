@@ -16,49 +16,49 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $logic28 = new DbLogic($db28);
   if (isset($_POST['option']) && $_POST['option'] == 'banda'){
     $sql =
-      'SELECT Artista.nombre, Email.email
+      "SELECT Artista.nombre, Email.email
       FROM Banda, Miembro, Artista, HasEmail, Email
-      WHERE Banda.nombre = '$_Post['nombre']'
+      WHERE Banda.nombre = $_Post["nombre"]
       AND Miembro.idb = Banda.id
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
       AND HasEmail.email = Email.email
       AND (Miembro.fecha_abandono > NOW()
       OR Miembro.fecha_abandono = null)
-      AND Miembro.fecha_ingreso < NOW()';
+      AND Miembro.fecha_ingreso < NOW()";
       $fullresponse['a_members'] = $logic9->bind($sql,$_POST);
       $sql =
-        'SELECT Artista.nombre, Email.email
+        "SELECT Artista.nombre, Email.email
         FROM Banda, Miembro, Artista, HasEmail, Email
-        WHERE Banda.nombre = '$_Post['nombre']'
+        WHERE Banda.nombre = $_Post["nombre"]
         AND Miembro.idb = Banda.id
         AND Miembro.ida = Artista.id
         AND Artista.id = HasEmail.id
         AND HasEmail.email = Email.email
-        AND (Miembro.fecha_abandono < NOW() OR Miembro.fecha_abandono != null';
+        AND (Miembro.fecha_abandono < NOW() OR Miembro.fecha_abandono != null";
         $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
         $sql =
-          'SELECT Disco.nombre,
+          "SELECT Disco.nombre,
           FROM Banda, Disco, BandaAutorOf, Miembro, Artista
           WHERE Banda.id = BandaAutorOf.idd
           AND Disco.id = BandaAutorOf.idd
           AND Banda.id = Miembro.idb
           AND Artista.id = Miembro.ida
-          AND Artista.nombre = '$_Post['nombre']'
+          AND Artista.nombre = $_Post["nombre"]
           UNION SELECT Artista.nombre
           FROM Artista, Disco, ArtistaAutorOf
           WHERE Artista.id = ArtistaAutorOf.idd
           AND Disco.id = ArtistaAutorOf.idd
-          AND Artista.nombre = '$_Post['nombre']'';
+          AND Artista.nombre = $_Post["nombre"]";
         $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   }elseif (isset($_POST['option']) && $_POST['option'] == 'artista') {
     $sql =
-      'SELECT Artista.nombre, Email.email
+      "SELECT Artista.nombre, Email.email
       FROM Banda, Miembro, Artista, HasEmail, Email,
       (SELECT banda.id
         FROM Artista, Miembro, Banda
-        WHERE Artista.nombre = '$_Post['nombre']'
+        WHERE Artista.nombre = $_Post["nombre"]
         AND Artista.id = Miembro.ida
         AND Miembro.idb = Banda.id) AS A
       WHERE A.id = Banda.id
@@ -68,14 +68,14 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND HasEmail.email = Email.email
       AND (Miembro.fecha_abandono > NOW()
       OR Miembro.fecha_abandono = null)
-      AND Miembro.fecha_ingreso < NOW()';
+      AND Miembro.fecha_ingreso < NOW()";
     $fullresponse['a_members'] = $logic9->bind($sql,$_POST);
     $sql =
-    'SELECT Artista.nombre, Email.email
+    "SELECT Artista.nombre, Email.email
     FROM Banda, Miembro, Artista, HasEmail, Email,
     (SELECT banda.id
       FROM Artista, Miembro, Banda
-      WHERE Artista.nombre = '$_Post['nombre']'
+      WHERE Artista.nombre = $_Post["nombre"]
       AND Artista.id = Miembro.ida
       AND Miembro.idb = Banda.id) AS A
     WHERE A.id = Banda.id
@@ -83,21 +83,21 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     AND Miembro.ida = Artista.id
     AND Artista.id = HasEmail.id
     AND HasEmail.email = Email.email
-    AND Miembro.fecha_abandono < NOW()';
+    AND Miembro.fecha_abandono < NOW()";
     $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
     $sql =
-      'SELECT Disco.nombre,
+      "SELECT Disco.nombre,
       FROM Banda, Disco, BandaAutorOf, Miembro, Artista
       WHERE Banda.id = BandaAutorOf.idd
       AND Disco.id = BandaAutorOf.idd
       AND Banda.id = Miembro.idb
       AND Artista.id = Miembro.ida
-      AND Artista.nombre = '$_Post['nombre']'
+      AND Artista.nombre = $_Post["nombre"]
       UNION SELECT Artista.nombre
       FROM Artista, Disco, ArtistaAutorOf
       WHERE Artista.id = ArtistaAutorOf.idd
       AND Disco.id = ArtistaAutorOf.idd
-      AND Artista.nombre = '$_Post['nombre']'';
+      AND Artista.nombre = $_Post["nombre"]";
     $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   } else {
