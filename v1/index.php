@@ -14,7 +14,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
   $logic9 = new DbLogic($db9);
   $db28 = new Connection(28);
   $logic28 = new DbLogic($db28);
-  $statement = $_POST['nombre']
+  $statement = $_POST['nombre'];
   if (isset($_POST['option']) && $_POST['option'] == 'banda'){
     $sql =
       "SELECT Artista.nombre, Email.email
