@@ -13,7 +13,7 @@ class DbLogic
   function bind($sql,$conditions){
     $query = $this->db->prepare($sql);
     if (isset($conditions["rule"]) && $conditions["rule"] == "find"){
-      $stament = "'".$conditions['nombre']."'"
+      $stament = "'".$conditions['nombre']."'";
       $query->bindParam(':nombre',-$stament,PDO::PARAM_STR);
       $query->execute();
       return $query-> fetchAll();
