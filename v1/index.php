@@ -22,8 +22,35 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND Miembro.idb = Banda.id
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
-      AND HasEmail.email = Email.email';
-    $response = $logic9->bind($sql,$_POST);
+      AND HasEmail.email = Email.email
+      AND (Miembro.fecha_abandono > NOW()
+      OR Miembro.fecha_abandono = null)
+      AND Miembro.fecha_ingreso < NOW()';
+      $fullresponse['a_members'] = $logic9->bind($sql,$_POST);
+      $sql =
+        'SELECT Artista.nombre, Email.email
+        FROM Banda, Miembro, Artista, HasEmail, Email
+        WHERE Banda.nombre = $1
+        AND Miembro.idb = Banda.id
+        AND Miembro.ida = Artista.id
+        AND Artista.id = HasEmail.id
+        AND HasEmail.email = Email.email
+        AND Miembro.fecha_abandono < NOW()';
+        $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
+        $sql =
+          'SELECT Disco.nombre,
+          FROM Banda, Disco, BandaAutorOf, Miembro, Artista
+          WHERE Banda.id = BandaAutorOf.idd
+          AND Disco.id = BandaAutorOf.idd
+          AND Banda.id = Miembro.idb
+          AND Artista.id = Miembro.ida
+          AND Artista.nombre = $1
+          UNION SELECT Artista.nombre
+          FROM Artista, Disco, ArtistaAutorOf
+          WHERE Artista.id = ArtistaAutorOf.idd
+          AND Disco.id = ArtistaAutorOf.idd
+          AND Artista.nombre = $1';
+        $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   }elseif (isset($_POST['option']) && $_POST['option'] == 'artista') {
     $sql =
