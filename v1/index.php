@@ -18,7 +18,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     $sql =
       'SELECT Artista.nombre, Email.email
       FROM Banda, Miembro, Artista, HasEmail, Email
-      WHERE Banda.nombre = $1
+      WHERE Banda.nombre = :nombre
       AND Miembro.idb = Banda.id
       AND Miembro.ida = Artista.id
       AND Artista.id = HasEmail.id
@@ -30,7 +30,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       $sql =
         'SELECT Artista.nombre, Email.email
         FROM Banda, Miembro, Artista, HasEmail, Email
-        WHERE Banda.nombre = $1
+        WHERE Banda.nombre = :nombre
         AND Miembro.idb = Banda.id
         AND Miembro.ida = Artista.id
         AND Artista.id = HasEmail.id
@@ -44,12 +44,12 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
           AND Disco.id = BandaAutorOf.idd
           AND Banda.id = Miembro.idb
           AND Artista.id = Miembro.ida
-          AND Artista.nombre = $1
+          AND Artista.nombre = :nombre
           UNION SELECT Artista.nombre
           FROM Artista, Disco, ArtistaAutorOf
           WHERE Artista.id = ArtistaAutorOf.idd
           AND Disco.id = ArtistaAutorOf.idd
-          AND Artista.nombre = $1';
+          AND Artista.nombre = :nombre';
         $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   }elseif (isset($_POST['option']) && $_POST['option'] == 'artista') {
@@ -58,7 +58,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       FROM Banda, Miembro, Artista, HasEmail, Email,
       (SELECT banda.id
         FROM Artista, Miembro, Banda
-        WHERE Artista.nombre = $1
+        WHERE Artista.nombre = :nombre
         AND Artista.id = Miembro.ida
         AND Miembro.idb = Banda.id) AS A
       WHERE A.id = Banda.id
@@ -75,7 +75,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
     FROM Banda, Miembro, Artista, HasEmail, Email,
     (SELECT banda.id
       FROM Artista, Miembro, Banda
-      WHERE Artista.nombre = $1
+      WHERE Artista.nombre = :nombre
       AND Artista.id = Miembro.ida
       AND Miembro.idb = Banda.id) AS A
     WHERE A.id = Banda.id
@@ -92,12 +92,12 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
       AND Disco.id = BandaAutorOf.idd
       AND Banda.id = Miembro.idb
       AND Artista.id = Miembro.ida
-      AND Artista.nombre = $1
+      AND Artista.nombre = :nombre
       UNION SELECT Artista.nombre
       FROM Artista, Disco, ArtistaAutorOf
       WHERE Artista.id = ArtistaAutorOf.idd
       AND Disco.id = ArtistaAutorOf.idd
-      AND Artista.nombre = $1';
+      AND Artista.nombre = :nombre';
     $fullresponse['discs'] = $logic9->bind($sql,$_POST);
     header(http_response_code(200));
   } else {
