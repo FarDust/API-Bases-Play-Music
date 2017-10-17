@@ -35,7 +35,7 @@ if (isset($_POST['rule']) && $_POST['rule'] == 'find') {
         AND Miembro.ida = Artista.id
         AND Artista.id = HasEmail.id
         AND HasEmail.email = Email.email
-        AND Miembro.fecha_abandono < NOW()';
+        AND (Miembro.fecha_abandono < NOW() OR Miembro.fecha_abandono != null';
         $fullresponse['r_members'] = $logic9->bind($sql,$_POST);
         $sql =
           'SELECT Disco.nombre,
